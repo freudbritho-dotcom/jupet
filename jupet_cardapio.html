@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ju Pet — Cardápio de Serviços</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --roxo:#6B3F8C;--roxo-dark:#52307A;--lilas:#B48DC0;--lilas-claro:#E8D8F0;--lilas-palido:#F5EDF9;
+  --amarelo:#F5C518;--amarelo-claro:#FEF9E7;--verde:#2E9E75;--creme:#FAF7F2;--cinza:#4A4A4A;--cinza-claro:#8A8A8A;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:#E9E4EF;color:var(--cinza);line-height:1.5;padding:24px;}
+
+/* BARRA DE AÇÕES (some na impressão) */
+.toolbar{max-width:794px;margin:0 auto 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+.toolbar .hint{font-size:13px;color:#6B5B7E;}
+.btn-print{background:var(--roxo);color:#fff;border:none;border-radius:30px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 14px rgba(107,63,140,0.3);}
+
+/* FOLHA A4 */
+.page{width:794px;min-height:1123px;margin:0 auto;background:var(--creme);box-shadow:0 8px 40px rgba(0,0,0,0.12);position:relative;overflow:hidden;display:flex;flex-direction:column;}
+
+/* CABEÇALHO */
+.head{background:var(--roxo);color:#fff;padding:32px 54px 26px;text-align:center;position:relative;overflow:hidden;}
+.head::before{content:'';position:absolute;width:360px;height:360px;border-radius:50%;border:1px solid rgba(255,255,255,0.08);top:-160px;right:-120px;}
+.head::after{content:'';position:absolute;width:240px;height:240px;border-radius:50%;border:1px solid rgba(255,255,255,0.06);bottom:-120px;left:-80px;}
+.logo{width:72px;height:72px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto 12px;box-shadow:0 0 0 6px rgba(255,255,255,0.12);}
+.brand{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;letter-spacing:0.01em;line-height:1;}
+.tagline{font-size:12px;letter-spacing:0.32em;text-transform:uppercase;color:var(--lilas-claro);margin-top:9px;}
+.menu-tag{display:inline-block;margin-top:15px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--roxo);background:var(--amarelo);padding:7px 20px;border-radius:30px;font-weight:600;}
+
+/* CORPO */
+.body{padding:26px 54px 18px;flex:1;}
+.col-title{font-family:'Cormorant Garamond',serif;font-size:25px;color:var(--roxo);font-weight:600;margin:2px 0 10px;display:flex;align-items:center;gap:10px;}
+.col-title::after{content:'';flex:1;height:1px;background:var(--lilas-claro);}
+
+table{width:100%;border-collapse:collapse;margin-bottom:18px;}
+td{padding:7px 0;border-bottom:1px solid #E6DEEE;vertical-align:top;font-size:14px;}
+tr:last-child td{border-bottom:none;}
+.svc{font-weight:500;color:var(--cinza);}
+.svc small{display:block;font-weight:400;color:var(--cinza-claro);font-size:12px;margin-top:1px;}
+.price{text-align:right;white-space:nowrap;font-weight:600;color:var(--roxo);font-size:14px;}
+.addon td{font-size:13px;padding:7px 0;}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;}
+
+/* CLUBINHO */
+.clubinho{background:linear-gradient(135deg,var(--roxo),#8B5CA8);border-radius:18px;padding:22px 28px;color:#fff;margin:4px 0 6px;display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center;}
+.clubinho h3{font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:400;margin-bottom:8px;}
+.clubinho p{font-size:12.5px;opacity:0.9;line-height:1.7;}
+.clubinho .preco{text-align:center;background:rgba(255,255,255,0.12);border-radius:14px;padding:16px 22px;min-width:128px;}
+.clubinho .de{font-size:12px;opacity:0.65;text-decoration:line-through;}
+.clubinho .por{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;opacity:0.75;margin:2px 0;}
+.clubinho .valor{font-size:34px;font-weight:600;color:var(--amarelo);line-height:1;}
+.clubinho .mes{font-size:11px;opacity:0.75;}
+
+/* RODAPÉ */
+.foot{background:var(--lilas-palido);padding:18px 54px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--lilas-claro);flex-wrap:wrap;gap:8px;}
+.foot .loc{font-size:12.5px;color:var(--roxo);}
+.foot .ig{font-size:13px;color:var(--roxo);font-weight:600;}
+.note{font-size:11px;color:var(--cinza-claro);text-align:center;padding:10px 54px 22px;}
+
+@media print{
+  @page{size:A4;margin:0;}
+  body{background:#fff;padding:0;}
+  .toolbar{display:none;}
+  .page{box-shadow:none;width:100%;min-height:auto;margin:0;}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <span class="hint">💡 Clique em imprimir e escolha <b>“Salvar como PDF”</b> ou imprima em folha A4.</span>
+  <button class="btn-print" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+</div>
+
+<div class="page">
+  <div class="head">
+    <div class="logo">🐾</div>
+    <div class="brand">Ju Pet</div>
+    <div class="tagline">Banho &amp; Tosa Premium</div>
+    <div class="menu-tag">Cardápio de Serviços</div>
+  </div>
+
+  <div class="body">
+    <div class="col-title">🛁 Banho &amp; Tosa</div>
+    <table>
+      <tr><td class="svc">Banho + Tosa Completa <small>Pequeno porte</small></td><td class="price">R$ 65–85</td></tr>
+      <tr><td class="svc">Banho + Tosa Completa <small>Médio porte</small></td><td class="price">R$ 90–120</td></tr>
+      <tr><td class="svc">Banho + Tosa Completa <small>Grande porte</small></td><td class="price">R$ 130–170</td></tr>
+      <tr><td class="svc">Tosa na Tesoura <small>Tosa de raça · todos os portes</small></td><td class="price">R$ 100–160</td></tr>
+      <tr><td class="svc">Banho Simples <small>Pequeno / médio porte</small></td><td class="price">R$ 40–70</td></tr>
+    </table>
+
+    <div class="two">
+      <div>
+        <div class="col-title">✨ Estética</div>
+        <table>
+          <tr class="addon"><td class="svc">Hidratação de Pelagem</td><td class="price">R$ 30–50</td></tr>
+          <tr class="addon"><td class="svc">Cromoterapia</td><td class="price">R$ 20–35</td></tr>
+          <tr class="addon"><td class="svc">Tosa Higiênica</td><td class="price">R$ 25–40</td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="col-title">🧼 Cuidados</div>
+        <table>
+          <tr class="addon"><td class="svc">Escovação Dental</td><td class="price">R$ 20–30</td></tr>
+          <tr class="addon"><td class="svc">Limpeza de Ouvido</td><td class="price">R$ 15–25</td></tr>
+          <tr class="addon"><td class="svc">Corte de Unhas</td><td class="price">R$ 15–20</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="clubinho">
+      <div>
+        <h3>☁️ Clubinho da Tia Ju</h3>
+        <p>O cuidado do seu pet em dia, todo mês: <b>4 banhos</b> · 4 limpezas de ouvido · 2 cortes de unha · 3 hidratações · 1 tosa higiênica · 4 escovações dental.</p>
+      </div>
+      <div class="preco">
+        <div class="de">R$ 270</div>
+        <div class="por">por apenas</div>
+        <div class="valor">R$ 180</div>
+        <div class="mes">por mês</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="loc">📍 Acupe de Brotas · Salvador-BA</div>
+    <div class="ig">📸 @ju.pett</div>
+  </div>
+  <div class="note">Valores podem variar conforme porte, condição da pelagem e serviços adicionais. Consulte a Tia Ju. 🐾</div>
+</div>
+
+</body>
+</html>
