@@ -60,6 +60,8 @@ body{font-family:'DM Sans',sans-serif;background:#E9E4EF;color:var(--cinza);padd
 /* toolbar */
 .toolbar{max-width:1080px;margin:0 auto 8px;text-align:center;}
 .toolbar .hint{font-size:13px;color:#6B5B7E;background:#fff;border:1px solid var(--lilas-claro);padding:10px 18px;border-radius:30px;display:inline-block;}
+.btn-baixar{display:block;margin:12px auto 2px;background:var(--roxo);color:#fff;border:none;border-radius:30px;padding:10px 22px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 12px rgba(107,63,140,0.25);}
+.btn-baixar:disabled{opacity:.65;}
 @media print{body{background:#fff;}.toolbar,.cap,.intro p,.sec{}}
 </style>
 </head>
@@ -67,9 +69,9 @@ body{font-family:'DM Sans',sans-serif;background:#E9E4EF;color:var(--cinza);padd
 <div class="wrap">
   <div class="intro">
     <h1>Templates para Instagram</h1>
-    <p>Prontos para usar — abra no celular e dê um <b>print (captura de tela)</b> de cada card para publicar nos Stories ou no Feed.</p>
+    <p>Toque em <b>“⬇️ Baixar imagem”</b> embaixo de cada arte para salvar a imagem <b>pronta e no tamanho certo</b> (stories 1080×1920 · posts 1080×1080). Depois é só publicar no Instagram.</p>
   </div>
-  <div class="toolbar"><span class="hint">📱 Dica: no celular, tire um print de cada card. A área colorida é o que vira a publicação.</span></div>
+  <div class="toolbar"><span class="hint">📱 Cada arte vira um arquivo separado na galeria do celular — uma por vez, pronta para postar.</span></div>
 
   <!-- STORIES -->
   <div class="sec">Stories · 9:16</div>
@@ -206,5 +208,43 @@ body{font-family:'DM Sans',sans-serif;background:#E9E4EF;color:var(--cinza);padd
 
   </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+function nomeArquivo(item){
+  const big=item.querySelector('.big');
+  let t=(big?big.innerText:'arte').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,28);
+  return t||'arte';
+}
+// injeta um botão "Baixar imagem" em cada card
+document.querySelectorAll('.item').forEach(item=>{
+  const card=item.querySelector('.story,.post'); if(!card)return;
+  const btn=document.createElement('button');
+  btn.className='btn-baixar'; btn.textContent='⬇️ Baixar imagem';
+  btn.addEventListener('click',()=>baixar(btn,card,nomeArquivo(item)));
+  const cap=item.querySelector('.cap');
+  cap?item.insertBefore(btn,cap):item.appendChild(btn);
+});
+async function baixar(btn,card,nome){
+  if(typeof html2canvas!=='function'){alert('A ferramenta de imagem ainda está carregando (precisa de internet). Aguarde 2s e tente de novo.');return;}
+  btn.textContent='⏳ Gerando…'; btn.disabled=true;
+  try{
+    if(document.fonts&&document.fonts.ready)await document.fonts.ready;
+    const scale=1080/card.offsetWidth; // stories 300→1080, posts 320→1080
+    const rb=card.style.borderRadius, sh=card.style.boxShadow;
+    card.style.borderRadius='0'; card.style.boxShadow='none';
+    const canvas=await html2canvas(card,{scale:scale,backgroundColor:null,useCORS:true,logging:false});
+    card.style.borderRadius=rb; card.style.boxShadow=sh;
+    const a=document.createElement('a');
+    a.href=canvas.toDataURL('image/png'); a.download='jupet_'+nome+'.png';
+    document.body.appendChild(a); a.click(); a.remove();
+    btn.textContent='✅ Baixado!';
+  }catch(e){
+    alert('Não consegui gerar a imagem automaticamente neste navegador. Alternativa: tire um print (captura de tela) do card.');
+    btn.textContent='⬇️ Baixar imagem';
+  }
+  setTimeout(()=>{btn.textContent='⬇️ Baixar imagem'; btn.disabled=false;},1800);
+}
+</script>
 </body>
 </html>
