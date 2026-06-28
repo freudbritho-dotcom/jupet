@@ -305,10 +305,11 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--fundo);color:va
     </div>
 
     <div class="clubinho-banner">
-      <div class="clubinho-banner-title">☁️ Clubinho da Tia Ju</div>
-      <div class="clubinho-banner-sub">Assinantes ativos este mês</div>
+      <div class="clubinho-banner-title">📦 Pacotes Mensais</div>
+      <div class="clubinho-banner-sub">Pets com pacote ativo</div>
       <div class="clubinho-banner-num" id="dashClubinho">0</div>
       <div class="clubinho-banner-sub" style="margin-top:4px;" id="dashClubinhoVal">R$ 0 em receita recorrente</div>
+      <div class="clubinho-banner-sub" style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.2);padding-top:8px;" id="dashFidelidade">⭐ Clubinho fidelidade: —</div>
     </div>
 
     <div class="card">
@@ -482,7 +483,10 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--fundo);color:va
     </div>
 
     <div class="form-group"><label class="form-label">Observações do pet</label><input class="form-input" id="cliObs" placeholder="Alergias, comportamento, etc."></div>
-    <div class="form-group"><label class="form-label">Clubinho da Tia Ju?</label><select class="form-select" id="cliClubinho"><option value="nao">Não</option><option value="sim">Sim — assinante ativo</option></select></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">📦 Pacote mensal</label><select class="form-select" id="cliPacote"><option value="">Nenhum (avulso)</option><option>Essencial</option><option>Cuidado</option><option>Spa Pet</option><option>Família</option><option>Manutenção</option></select></div>
+      <div class="form-group"><label class="form-label">⭐ Fidelidade (banhos)</label><input class="form-input" id="cliFidelidade" type="number" min="0" max="10" placeholder="0" value="0"></div>
+    </div>
     <button class="btn-primary" onclick="salvarCliente()">✅ Salvar cliente</button>
     <button class="btn-secondary" onclick="closeModal('modalCliente')">Cancelar</button>
   </div>
@@ -501,7 +505,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--fundo);color:va
     <div class="form-group"><label class="form-label">Valor (R$)</label><input class="form-input" id="recValor" type="number" placeholder="0,00"></div>
     <div class="form-row">
       <div class="form-group"><label class="form-label">Data</label><input class="form-input" id="recData" type="date"></div>
-      <div class="form-group"><label class="form-label">Categoria</label><select class="form-select" id="recCategoria"><option>Atendimento</option><option>Clubinho</option><option>Produto vendido</option><option>Aluguel</option><option>Energia</option><option>Água</option><option>Transporte</option><option>Equipe</option><option>Produtos consumo</option><option>Marketing</option><option>Outros</option></select></div>
+      <div class="form-group"><label class="form-label">Categoria</label><select class="form-select" id="recCategoria"><option>Atendimento</option><option>Pacote mensal</option><option>Produto vendido</option><option>Aluguel</option><option>Energia</option><option>Água</option><option>Transporte</option><option>Equipe</option><option>Produtos consumo</option><option>Marketing</option><option>Outros</option></select></div>
     </div>
     <button class="btn-primary" onclick="salvarLancamento()">✅ Salvar lançamento</button>
     <button class="btn-secondary" onclick="closeModal('modalReceita')">Cancelar</button>
@@ -546,7 +550,10 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--fundo);color:va
     </div>
     <div class="form-group"><label class="form-label">🎂 Aniversário do Pet</label><input class="form-input" id="petAniv" type="date"></div>
     <div class="form-group"><label class="form-label">Observações do pet</label><input class="form-input" id="petObs" placeholder="Alergias, comportamento, etc."></div>
-    <div class="form-group"><label class="form-label">Clubinho da Tia Ju?</label><select class="form-select" id="petClubinho"><option value="nao">Não</option><option value="sim">Sim — assinante ativo</option></select></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">📦 Pacote mensal</label><select class="form-select" id="petPacote"><option value="">Nenhum (avulso)</option><option>Essencial</option><option>Cuidado</option><option>Spa Pet</option><option>Família</option><option>Manutenção</option></select></div>
+      <div class="form-group"><label class="form-label">⭐ Fidelidade (banhos)</label><input class="form-input" id="petFidelidade" type="number" min="0" max="10" placeholder="0" value="0"></div>
+    </div>
     <button class="btn-primary" onclick="salvarPet()">✅ Salvar pet</button>
     <button class="btn-secondary" onclick="closeModal('modalPet')">Cancelar</button>
   </div>
@@ -569,8 +576,12 @@ let servicosRecibo=[];
 let periodoFin='mes';
 let petTutorAlvo=null; // id do tutor ao adicionar pet
 const RETORNO_DIAS_PADRAO=30;
+// Pacotes mensais (tabela Ju Pet) + valor de referência por mês
+const PACOTES={'Essencial':120,'Cuidado':250,'Spa Pet':350,'Família':220,'Manutenção':360};
+const FIDELIDADE_META=10; // a cada 10 banhos no clube, 1 hidratação grátis
+function valorPacote(nome){return PACOTES[nome]||0;}
 
-// ─── MIGRAÇÃO: cliente.pet (string) → cliente.pets[] ───
+// ─── MIGRAÇÃO: cliente.pet→pets[]; clubinho(sim/nao)→pacote+fidelidade ───
 function migrarClientes(){
   let mudou=false;
   clientes.forEach(c=>{
@@ -578,6 +589,10 @@ function migrarClientes(){
       c.pets=[{id:(c.id||Date.now())+1,nome:c.pet||'Pet',raca:c.raca||'',porte:c.porte||'',aniv:c.aniv||'',obs:c.obs||'',photo:c.photo||'',clubinho:c.clubinho||'nao'}];
       mudou=true;
     }
+    c.pets.forEach(p=>{
+      if(p.pacote===undefined){p.pacote=(p.clubinho==='sim'?'Cuidado':'');mudou=true;}
+      if(p.fidelidade===undefined){p.fidelidade=0;mudou=true;}
+    });
   });
   if(mudou)DB.set('clientes',clientes);
 }
@@ -773,9 +788,15 @@ function renderDash(){
   const pct=Math.min(100,Math.round((totalE/5280)*100));
   document.getElementById('dashBreak').textContent=pct+'%';
   document.getElementById('dashProgress').style.width=pct+'%';
-  const clubAtivos=clientes.reduce((s,c)=>s+petsDe(c).filter(p=>p.clubinho==='sim').length,0);
-  document.getElementById('dashClubinho').textContent=clubAtivos;
-  document.getElementById('dashClubinhoVal').textContent='R$ '+(clubAtivos*180).toLocaleString('pt-BR')+' em receita recorrente';
+  let pacotesAtivos=0, recorrente=0, carimbos=0, quase=0;
+  clientes.forEach(c=>petsDe(c).forEach(p=>{
+    if(p.pacote){pacotesAtivos++;recorrente+=valorPacote(p.pacote);}
+    const f=parseInt(p.fidelidade)||0;
+    if(f>0){carimbos+=f;if(f>=FIDELIDADE_META-2)quase++;}
+  }));
+  document.getElementById('dashClubinho').textContent=pacotesAtivos;
+  document.getElementById('dashClubinhoVal').textContent='R$ '+recorrente.toLocaleString('pt-BR')+' em receita recorrente';
+  document.getElementById('dashFidelidade').textContent='⭐ Clubinho fidelidade: '+carimbos+' carimbos'+(quase?' · '+quase+' perto da hidratação grátis 🎁':'');
   renderAniversarios();
   renderRetornos();
   const cont=document.getElementById('dashAgendaHoje');
@@ -850,13 +871,14 @@ function salvarCliente(){
   const id=Date.now();
   const obj={id,nome,tel:document.getElementById('cliTel').value,pets:[{
     id:id+1,nome:pet,raca:document.getElementById('cliRaca').value,porte:document.getElementById('cliPorte').value,
-    obs:document.getElementById('cliObs').value,clubinho:document.getElementById('cliClubinho').value,
+    obs:document.getElementById('cliObs').value,pacote:document.getElementById('cliPacote').value,
+    fidelidade:parseInt(document.getElementById('cliFidelidade').value)||0,
     aniv:document.getElementById('cliAniv').value,photo:document.getElementById('cliPhoto').value
   }]};
   clientes.push(obj);DB.set('clientes',clientes);
   closeModal('modalCliente');
   ['cliNome','cliTel','cliPet','cliRaca','cliObs','cliAniv'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('cliClubinho').value='nao';document.getElementById('cliPhoto').value='';
+  document.getElementById('cliPacote').value='';document.getElementById('cliFidelidade').value='0';document.getElementById('cliPhoto').value='';
   renderClientes();renderDash();
 }
 
@@ -868,7 +890,7 @@ function renderClientes(){
   if(!lista.length){container.innerHTML='<div class="empty"><div class="empty-icon">🐶</div><div class="empty-text">Nenhum cliente cadastrado</div></div>';return;}
   container.innerHTML=lista.map(c=>{
     const pets=petsDe(c);
-    const temClub=pets.some(p=>p.clubinho==='sim');
+    const temPacote=pets.some(p=>p.pacote);
     const fotoPet=pets.find(p=>p.photo);
     const avatarInner=fotoPet?`<img src="${fotoPet.photo}">`:(c.nome.charAt(0).toUpperCase());
     // aniversário mais próximo entre os pets
@@ -880,7 +902,7 @@ function renderClientes(){
     return `<div class="cliente-item" onclick="verPerfil(${c.id})">
       <div class="cliente-avatar">${avatarInner}</div>
       <div class="cliente-info">
-        <div class="cliente-nome">${c.nome} ${temClub?'⭐':''}</div>
+        <div class="cliente-nome">${c.nome} ${temPacote?'📦':''}</div>
         <div class="cliente-pets">🐾 ${petsLabel}${petsCount}</div>
         <div class="cliente-tel">${c.tel||''}</div>
         ${anivTag}
@@ -896,8 +918,8 @@ function verPerfil(id){
   const c=clientes.find(x=>x.id===id);if(!c)return;
   petTutorAlvo=c.id;
   const pets=petsDe(c);
-  const temClub=pets.some(p=>p.clubinho==='sim');
-  document.getElementById('perfilNome').textContent=c.nome+(temClub?' ⭐':'');
+  const temPacote=pets.some(p=>p.pacote);
+  document.getElementById('perfilNome').textContent=c.nome+(temPacote?' 📦':'');
   document.getElementById('perfilTel').textContent=c.tel?'📞 '+c.tel:'sem telefone';
   const wa=document.getElementById('perfilWa');
   if(c.tel){wa.style.display='inline-flex';wa.onclick=()=>abrirWhatsapp(c.tel,`Oi, ${c.nome}! 🐾💜 Aqui é da Ju Pet. `);}
@@ -914,14 +936,21 @@ function verPerfil(id){
       <div class="fin-item"><div><div class="fin-desc">${a.servico}</div><div class="fin-meta">${formatData(a.data)}${a.hora?' · '+a.hora:''}</div></div>
       <div style="text-align:right;"><span class="badge ${statusBadge(a.status)}">${a.status}</span>${a.valor?`<div class="fin-valor entrada" style="margin-top:4px;">R$ ${a.valor}</div>`:''}</div>
       </div>`).join(''):'<div style="font-size:12px;color:var(--cinza-claro);padding:6px 0;">Nenhum atendimento registrado</div>';
+    const fid=parseInt(p.fidelidade)||0;
+    const dots=Array.from({length:FIDELIDADE_META},(x,i)=>`<span style="display:inline-block;width:14px;height:14px;border-radius:50%;margin:0 2px 0 0;${i<fid?'background:var(--amarelo);':'background:#fff;border:1px solid var(--lilas-claro);'}"></span>`).join('');
+    const pacoteBadge=p.pacote?`<span class="badge badge-roxo" style="font-size:10px;">📦 ${p.pacote}</span>`:'';
     return `<div class="pet-bloco">
       <div class="pet-bloco-head">
         <div class="pet-bloco-foto">${foto}</div>
         <div style="flex:1;">
-          <div class="pet-bloco-nome">${p.nome||'Pet'} ${p.clubinho==='sim'?'⭐':''}</div>
+          <div class="pet-bloco-nome">${p.nome||'Pet'} ${pacoteBadge}</div>
           <div class="pet-bloco-sub">${[p.raca,p.porte].filter(Boolean).join(' · ')||'—'}${p.aniv?' · 🎂 '+anivFmt+(anivTexto?' ('+anivTexto+')':''):''}</div>
         </div>
         <button class="btn-delete" onclick="deletarPet(${c.id},${p.id})">🗑</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:var(--lilas-palido);border-radius:10px;padding:8px 10px;margin-bottom:8px;">
+        <div style="flex:1;"><div style="font-size:11px;color:var(--roxo);font-weight:600;">⭐ Clubinho fidelidade</div><div style="margin-top:4px;">${dots}</div><div style="font-size:10px;color:var(--cinza-claro);margin-top:3px;">${fid}/${FIDELIDADE_META} banhos · faltam ${Math.max(0,FIDELIDADE_META-fid)} p/ hidratação grátis</div></div>
+        <button class="btn-add-pet" style="width:auto;margin:0;padding:8px 12px;font-size:12px;" onclick="carimbar(${c.id},${p.id})">+ carimbo</button>
       </div>
       ${p.obs?`<div style="font-size:12px;color:var(--cinza-claro);margin-bottom:8px;">📝 ${p.obs}</div>`:''}
       ${histHtml}
@@ -935,7 +964,8 @@ function abrirModalPet(tutorId){
   petTutorAlvo=tutorId;
   ['petNome','petRaca','petObs','petAniv'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('petPorte').value='Pequeno';
-  document.getElementById('petClubinho').value='nao';
+  document.getElementById('petPacote').value='';
+  document.getElementById('petFidelidade').value='0';
   document.getElementById('petPhoto').value='';
   const area=document.getElementById('fotoUploadAreaPet');
   area.querySelector('img')?.remove();
@@ -965,9 +995,22 @@ function salvarPet(){
   const nome=document.getElementById('petNome').value.trim();
   if(!nome){alert('Informe o nome do pet.');return;}
   if(!Array.isArray(c.pets))c.pets=[];
-  c.pets.push({id:Date.now(),nome,raca:document.getElementById('petRaca').value,porte:document.getElementById('petPorte').value,obs:document.getElementById('petObs').value,clubinho:document.getElementById('petClubinho').value,aniv:document.getElementById('petAniv').value,photo:document.getElementById('petPhoto').value});
+  c.pets.push({id:Date.now(),nome,raca:document.getElementById('petRaca').value,porte:document.getElementById('petPorte').value,obs:document.getElementById('petObs').value,pacote:document.getElementById('petPacote').value,fidelidade:parseInt(document.getElementById('petFidelidade').value)||0,aniv:document.getElementById('petAniv').value,photo:document.getElementById('petPhoto').value});
   DB.set('clientes',clientes);
   closeModal('modalPet');
+  verPerfil(c.id);renderClientes();renderDash();
+}
+// ─── FIDELIDADE: +1 carimbo (a cada 10 banhos, 1 hidratação grátis) ───
+function carimbar(tutorId,petId){
+  const c=tutorPorId(tutorId);if(!c)return;
+  const p=petsDe(c).find(p=>p.id===petId);if(!p)return;
+  let f=(parseInt(p.fidelidade)||0)+1;
+  if(f>=FIDELIDADE_META){
+    alert('🎁 '+(p.nome||'O pet')+' completou '+FIDELIDADE_META+' banhos no Clubinho! Hidratação simples GRÁTIS liberada. O cartão foi zerado.');
+    f=0;
+  }
+  p.fidelidade=f;
+  DB.set('clientes',clientes);
   verPerfil(c.id);renderClientes();renderDash();
 }
 function deletarPet(tutorId,petId){
@@ -1064,7 +1107,8 @@ function gerarRelatorio(){
   const totalS=saidas.reduce((s,l)=>s+l.valor,0);
   const saldo=totalE-totalS;
   const atendMes=atendimentos.filter(a=>a.data&&a.data.startsWith(mes)&&a.status==='concluido');
-  const clubAtivos=clientes.reduce((s,c)=>s+petsDe(c).filter(p=>p.clubinho==='sim').length,0);
+  let pacotesAtivos=0, recorrente=0;
+  clientes.forEach(c=>petsDe(c).forEach(p=>{if(p.pacote){pacotesAtivos++;recorrente+=valorPacote(p.pacote);}}));
   const pct=Math.min(100,Math.round((totalE/5280)*100));
   const brl=v=>'R$ '+v.toLocaleString('pt-BR');
   // agrupa por categoria
@@ -1084,7 +1128,7 @@ function gerarRelatorio(){
     </div>
     <div class="rp-sec">Resumo operacional</div>
     <div class="rp-row"><span>Atendimentos concluídos no mês</span><span>${atendMes.length}</span></div>
-    <div class="rp-row"><span>Assinantes do Clubinho da Tia Ju</span><span>${clubAtivos} · ${brl(clubAtivos*180)}/mês</span></div>
+    <div class="rp-row"><span>Pets com pacote mensal ativo</span><span>${pacotesAtivos} · ${brl(recorrente)}/mês recorrente</span></div>
     <div class="rp-row"><span>Clientes (tutores) cadastrados</span><span>${clientes.length}</span></div>
     <div class="rp-sec">Receitas por categoria</div>
     ${linhasCat(porCat(entradas))}
