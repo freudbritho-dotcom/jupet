@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ju Pet — Projeto de Mudança e Crescimento 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --roxo:#6B3F8C;--lilas:#B48DC0;--lilas-claro:#E8D8F0;--lilas-palido:#F5EDF9;
+  --amarelo:#F5C518;--amarelo-claro:#FEF9E7;--verde:#2E9E75;--verde-claro:#EDFAF3;
+  --vermelho:#E05D5D;--creme:#FAF7F2;--cinza:#4A4A4A;--cinza-claro:#8A8A8A;
+  --sombra:0 4px 24px rgba(107,63,140,0.10);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--creme);color:var(--cinza);line-height:1.6;}
+
+/* CAPA */
+.capa{background:var(--roxo);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 40px;position:relative;overflow:hidden;}
+.capa::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;border:1px solid rgba(255,255,255,0.08);top:-200px;right:-200px;}
+.capa::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;border:1px solid rgba(255,255,255,0.05);bottom:-150px;left:-100px;}
+.capa-tag{font-size:11px;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:var(--lilas-claro);margin-bottom:32px;opacity:0.8;}
+.logo-circle{width:120px;height:120px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;margin:0 auto 32px;box-shadow:0 0 0 8px rgba(255,255,255,0.1);font-size:52px;}
+.capa h1{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,8vw,80px);font-weight:300;color:white;letter-spacing:-0.02em;line-height:1.0;margin-bottom:16px;}
+.capa h1 em{font-style:italic;color:var(--lilas-claro);}
+.capa-sub{font-size:14px;color:rgba(255,255,255,0.6);font-weight:300;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:48px;}
+.capa-badges{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:60px;}
+.badge-outline{border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.85);padding:8px 20px;border-radius:40px;font-size:12px;font-weight:500;}
+.badge-fill{background:var(--amarelo);color:var(--roxo);padding:8px 20px;border-radius:40px;font-size:12px;font-weight:500;}
+.capa-divider{width:60px;height:1px;background:rgba(255,255,255,0.2);margin:0 auto 20px;}
+.capa-data{font-size:12px;color:rgba(255,255,255,0.35);letter-spacing:0.1em;}
+
+/* SEÇÕES */
+section{padding:80px 40px;max-width:900px;margin:0 auto;}
+.section-tag{font-size:10px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--lilas);margin-bottom:12px;}
+h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,5vw,48px);font-weight:400;color:var(--roxo);line-height:1.15;margin-bottom:40px;}
+h2 em{font-style:italic;}
+.page-divider{border:none;border-top:1px solid #EDE8F2;margin:0;}
+
+/* CARDS */
+.card{background:white;border-radius:var(--r,16px);padding:var(--p,28px);box-shadow:var(--sombra);margin-bottom:12px;}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+
+/* DIAGNÓSTICO */
+.diag-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px;}
+.diag-card{background:white;border-radius:16px;padding:28px;box-shadow:var(--sombra);border-top:3px solid transparent;}
+.diag-card.forca{border-color:#6B3F8C;}
+.diag-card.oportunidade{border-color:#2E9E75;}
+.diag-card.atencao{border-color:#F5C518;}
+.diag-card.acao{border-color:#E05D5D;}
+.diag-label{font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:14px;}
+.diag-label.forca{color:#6B3F8C;}
+.diag-label.oportunidade{color:#2E9E75;}
+.diag-label.atencao{color:#B8930A;}
+.diag-label.acao{color:#E05D5D;}
+.diag-item{font-size:13.5px;color:var(--cinza);padding:6px 0;border-bottom:1px solid #F0EBF5;line-height:1.5;}
+.diag-item:last-child{border:none;}
+
+/* IDENTIDADE */
+.brand-section{background:var(--lilas-palido);border-radius:24px;padding:48px;margin-bottom:40px;}
+.color-row{display:flex;gap:16px;margin-bottom:32px;flex-wrap:wrap;}
+.color-chip{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;color:var(--cinza-claro);}
+.color-swatch{width:56px;height:56px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.brand-words{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px;}
+.word-tag{padding:8px 18px;border-radius:40px;background:white;border:1px solid var(--lilas-claro);font-size:13px;color:var(--roxo);}
+
+/* LAYOUT */
+.layout-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px;}
+.room-card{border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:6px;}
+.room-card.recep{background:#F5EDF9;border:1.5px solid #D4B8E0;}
+.room-card.banho{background:#E8F4FB;border:1.5px solid #A8D4EB;}
+.room-card.tosa{background:#EDFAF3;border:1.5px solid #A8DFBF;}
+.room-card.estoque{background:#FEF9E7;border:1.5px solid #F2D97A;}
+.room-card.banheiro{background:#F5F5F5;border:1.5px solid #D0D0D0;}
+.room-name{font-size:13px;font-weight:500;}
+.room-desc{font-size:12px;color:var(--cinza-claro);line-height:1.5;}
+
+/* EQUIPE */
+.equipe-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:32px;}
+.equipe-card{background:white;border-radius:16px;padding:24px;box-shadow:var(--sombra);text-align:center;}
+.equipe-avatar{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 14px;}
+.equipe-nome{font-size:16px;font-weight:500;color:var(--roxo);margin-bottom:4px;}
+.equipe-cargo{font-size:12px;color:var(--cinza-claro);margin-bottom:12px;}
+.equipe-tag{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;background:var(--lilas-palido);color:var(--roxo);margin:2px;}
+
+/* SERVIÇOS */
+.servicos-table{width:100%;border-collapse:collapse;}
+.servicos-table th{text-align:left;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--lilas);padding:12px 16px;border-bottom:2px solid var(--lilas-claro);font-weight:500;}
+.servicos-table td{padding:14px 16px;font-size:14px;border-bottom:1px solid #F0EBF5;vertical-align:middle;}
+.servicos-table tr:last-child td{border:none;}
+.preco{font-weight:500;color:var(--roxo);white-space:nowrap;}
+.destaque-row td{background:#F5EDF9;font-weight:500;}
+
+/* CLUBINHO */
+.clubinho-card{background:var(--roxo);border-radius:20px;padding:36px;color:white;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;margin-top:24px;}
+.clubinho-card h3{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;margin-bottom:8px;}
+.clubinho-card p{font-size:13px;opacity:0.8;line-height:1.7;}
+.clubinho-preco{text-align:center;background:rgba(255,255,255,0.12);border-radius:14px;padding:20px 28px;}
+.clubinho-preco .de{font-size:12px;opacity:0.6;text-decoration:line-through;}
+.clubinho-preco .por{font-size:11px;opacity:0.7;margin-bottom:4px;}
+.clubinho-preco .valor{font-size:32px;font-weight:500;color:var(--amarelo);}
+
+/* FINANCEIRO */
+.fin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px;}
+.fin-card{background:white;border-radius:16px;padding:28px 24px;box-shadow:var(--sombra);text-align:center;}
+.fin-card.destaque{border:2px solid var(--roxo);}
+.fin-card .cenario{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--cinza-claro);margin-bottom:8px;}
+.fin-card .valor{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;color:var(--roxo);margin-bottom:4px;}
+.fin-card .desc{font-size:12px;color:var(--cinza-claro);}
+.custo-table{width:100%;border-collapse:collapse;margin-bottom:16px;}
+.custo-table td{padding:12px 0;font-size:14px;border-bottom:1px solid #EDE8F2;}
+.custo-table td:last-child{text-align:right;font-weight:500;color:var(--roxo);}
+.custo-table td.cat-tag{padding-right:8px;}
+.custo-table tr.total td{border-top:2px solid var(--roxo);border-bottom:none;font-weight:500;font-size:15px;padding-top:16px;}
+.custo-table tr.total td:last-child{color:var(--roxo);}
+.custo-table td.atencao{color:#B8930A;font-size:12px;}
+
+/* BREAK-EVEN */
+.break-card{background:var(--roxo);border-radius:14px;padding:24px 28px;color:white;margin-top:24px;}
+.break-title{font-size:12px;opacity:0.7;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;}
+.break-row{display:flex;justify-content:space-between;align-items:center;font-size:14px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.1);}
+.break-row:last-child{border:none;}
+.break-row.total{font-weight:500;font-size:16px;padding-top:12px;}
+.break-num{font-weight:500;color:var(--amarelo);}
+
+/* ALERTAS */
+.alerta-box{background:var(--amarelo-claro);border-left:3px solid var(--amarelo);border-radius:0 10px 10px 0;padding:16px 20px;margin-bottom:12px;}
+.alerta-title{font-size:13px;font-weight:500;color:#854F0B;margin-bottom:8px;}
+.alerta-item{font-size:13px;color:#633806;padding:3px 0;display:flex;gap:8px;}
+.alerta-item::before{content:'⚠';flex-shrink:0;}
+.ok-box{background:var(--verde-claro);border-left:3px solid var(--verde);border-radius:0 10px 10px 0;padding:16px 20px;margin-bottom:12px;}
+.ok-title{font-size:13px;font-weight:500;color:#1B6E50;margin-bottom:8px;}
+.ok-item{font-size:13px;color:#27500A;padding:3px 0;display:flex;gap:8px;}
+.ok-item::before{content:'✓';flex-shrink:0;}
+
+/* APP CARD */
+.app-card{background:white;border-radius:20px;padding:32px;box-shadow:var(--sombra);border:2px solid var(--lilas-claro);margin-bottom:12px;}
+.app-feature{display:flex;align-items:flex-start;gap:14px;padding:10px 0;border-bottom:1px solid #F0EBF5;}
+.app-feature:last-child{border:none;}
+.app-icon{width:36px;height:36px;border-radius:10px;background:var(--lilas-palido);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.app-info-title{font-size:14px;font-weight:500;color:var(--roxo);}
+.app-info-desc{font-size:13px;color:var(--cinza-claro);margin-top:2px;}
+
+/* MKT */
+.mkt-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.mkt-card{background:white;border-radius:16px;padding:28px;box-shadow:var(--sombra);}
+.mkt-card h4{font-size:15px;font-weight:500;color:var(--roxo);margin-bottom:12px;}
+.mkt-item{font-size:13px;color:var(--cinza);padding:5px 0;border-bottom:1px solid #F5F0F9;display:flex;gap:8px;}
+.mkt-item:last-child{border:none;}
+.mkt-item::before{content:'→';color:var(--lilas);flex-shrink:0;}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:32px;}
+.timeline::before{content:'';position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:var(--lilas-claro);}
+.tl-item{position:relative;margin-bottom:32px;}
+.tl-dot{position:absolute;left:-28px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--roxo);border:3px solid var(--creme);}
+.tl-periodo{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--lilas);margin-bottom:6px;}
+.tl-titulo{font-size:17px;font-weight:500;color:var(--roxo);margin-bottom:10px;}
+.tl-itens{list-style:none;}
+.tl-itens li{font-size:13.5px;color:var(--cinza);padding:4px 0;display:flex;gap:10px;}
+.tl-itens li::before{content:'✓';color:var(--lilas);font-weight:500;}
+
+/* FOOTER */
+.footer-page{background:var(--roxo);padding:80px 40px;text-align:center;}
+.footer-page h2{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:white;margin-bottom:16px;}
+.footer-page h2 em{font-style:italic;color:var(--lilas-claro);}
+.footer-page p{color:rgba(255,255,255,0.5);font-size:14px;margin-bottom:40px;}
+.footer-metrics{display:flex;gap:48px;justify-content:center;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.1);padding-top:40px;}
+.footer-metric .num{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:var(--amarelo);}
+.footer-metric .lbl{font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;}
+
+@media(max-width:640px){
+  section{padding:60px 24px;}
+  .diag-grid,.layout-grid,.fin-grid,.mkt-grid,.equipe-grid{grid-template-columns:1fr;}
+  .clubinho-card{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- CAPA -->
+<div class="capa">
+  <div class="capa-tag">Plano Estratégico · Mudança de Sede · Acupe de Brotas · Salvador</div>
+  <div class="logo-circle">🐾</div>
+  <h1>Ju Pet<br><em>2026</em></h1>
+  <p class="capa-sub">Banho &amp; Tosa Premium · Novo endereço · Novo crescimento</p>
+  <div class="capa-badges">
+    <span class="badge-outline">2 meses de operação</span>
+    <span class="badge-outline">Acupe de Brotas · Salvador</span>
+    <span class="badge-outline">Tia Ju + Assistente</span>
+    <span class="badge-fill">Hora de crescer</span>
+  </div>
+  <div class="capa-divider"></div>
+  <p class="capa-data">Junho de 2026 · Plano Estratégico</p>
+</div>
+
+<!-- 01 DIAGNÓSTICO -->
+<section>
+  <p class="section-tag">01 · Situação atual</p>
+  <h2>Diagnóstico da<br><em>Ju Pet hoje</em></h2>
+  <div class="diag-grid">
+    <div class="diag-card forca">
+      <div class="diag-label forca">✦ Forças já construídas</div>
+      <div class="diag-item">Marca com identidade visual premium consolidada</div>
+      <div class="diag-item">Profissional especialista (Tia Ju) com anos de experiência</div>
+      <div class="diag-item">440+ seguidores e 382 posts no Instagram em apenas 2 meses</div>
+      <div class="diag-item">Clubinho da Tia Ju (pacote mensal) já ativo e vendendo</div>
+      <div class="diag-item">Posicionamento claro: "calmo, seguro e exclusivo"</div>
+      <div class="diag-item">Cromoterapia e ambiente climatizado como diferencial de mercado</div>
+      <div class="diag-item">App de gestão próprio já desenvolvido</div>
+    </div>
+    <div class="diag-card oportunidade">
+      <div class="diag-label oportunidade">✦ Oportunidades no novo endereço</div>
+      <div class="diag-item">Acupe de Brotas em forte valorização — 2º em Brotas</div>
+      <div class="diag-item">Novos condomínios e prédios chegando à região</div>
+      <div class="diag-item">Diversidade social: público B e C com pets</div>
+      <div class="diag-item">Pouca concorrência premium no sub-bairro</div>
+      <div class="diag-item">Carteira de clientes existente para transferir</div>
+      <div class="diag-item">Imóvel tem hidráulica de banho já instalada</div>
+    </div>
+    <div class="diag-card atencao">
+      <div class="diag-label atencao">⚠ Pontos de atenção</div>
+      <div class="diag-item">Marca com 2 meses — fidelização ainda em construção</div>
+      <div class="diag-item">Mudança de endereço exige comunicação clara aos clientes</div>
+      <div class="diag-item">Energia elétrica pode ser maior que R$500 com AC ligado o dia todo</div>
+      <div class="diag-item">Iluminação do espaço novo precisa de melhoria (ambientes escuros)</div>
+    </div>
+    <div class="diag-card acao">
+      <div class="diag-label acao">→ Ações imediatas</div>
+      <div class="diag-item">Adequar espaço com pintura e iluminação no padrão Ju Pet</div>
+      <div class="diag-item">Comunicar a mudança de endereço no Instagram e WhatsApp</div>
+      <div class="diag-item">Manter Clubinho ativo sem interrupção durante a mudança</div>
+      <div class="diag-item">Registrar marca Ju Pet no INPI antes de crescer mais</div>
+    </div>
+  </div>
+</section>
+
+<hr class="page-divider">
+
+<!-- 02 IDENTIDADE VISUAL -->
+<section>
+  <p class="section-tag">02 · Identidade</p>
+  <h2>Padrão visual<br><em>a manter</em></h2>
+  <div class="brand-section">
+    <p style="font-size:10px;color:var(--cinza-claro);margin-bottom:20px;letter-spacing:0.1em;text-transform:uppercase;">Paleta de cores oficial</p>
+    <div class="color-row">
+      <div class="color-chip"><div class="color-swatch" style="background:#6B3F8C;"></div><span>Roxo principal</span><span>#6B3F8C</span></div>
+      <div class="color-chip"><div class="color-swatch" style="background:#B48DC0;"></div><span>Lilás médio</span><span>#B48DC0</span></div>
+      <div class="color-chip"><div class="color-swatch" style="background:#E8D8F0;"></div><span>Lilás claro</span><span>#E8D8F0</span></div>
+      <div class="color-chip"><div class="color-swatch" style="background:#F5C518;"></div><span>Amarelo acento</span><span>#F5C518</span></div>
+      <div class="color-chip"><div class="color-swatch" style="background:#FAF7F2;"></div><span>Creme fundo</span><span>#FAF7F2</span></div>
+    </div>
+    <p style="font-size:10px;color:var(--cinza-claro);margin-bottom:16px;letter-spacing:0.1em;text-transform:uppercase;">Palavras que definem a marca</p>
+    <div class="brand-words">
+      <span class="word-tag">Premium</span><span class="word-tag">Calmo</span><span class="word-tag">Seguro</span>
+      <span class="word-tag">Exclusivo</span><span class="word-tag">Feminino</span><span class="word-tag">Cuidadoso</span>
+      <span class="word-tag">Profissional</span><span class="word-tag">Carinhoso</span>
+    </div>
+    <p style="font-size:10px;color:var(--cinza-claro);margin-bottom:16px;letter-spacing:0.1em;text-transform:uppercase;">Padrões obrigatórios na nova sede</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div style="background:white;border-radius:10px;padding:14px;font-size:13px;">🎨 Paredes brancas com detalhes roxo/lilás</div>
+      <div style="background:white;border-radius:10px;padding:14px;font-size:13px;">🌿 Plantas e elementos naturais na recepção</div>
+      <div style="background:white;border-radius:10px;padding:14px;font-size:13px;">❄️ Ar-condicionado (já confirmado — ótimo)</div>
+      <div style="background:white;border-radius:10px;padding:14px;font-size:13px;">💜 Logo visível na entrada e área de banho</div>
+      <div style="background:white;border-radius:10px;padding:14px;font-size:13px;">🪑 Cadeiras de espera confortáveis</div>
+      <div style="background:white;border-radius:10px;padding:14px;font-size:13px;">📱 QR code do Instagram na recepção</div>
+    </div>
+  </div>
+</section>
+
+<hr class="page-divider">
+
+<!-- 03 ESPAÇO FÍSICO -->
+<section>
+  <p class="section-tag">03 · Espaço físico</p>
+  <h2>Layout sugerido<br><em>da nova sede</em></h2>
+  <p style="font-size:14px;color:var(--cinza-claro);margin-bottom:28px;line-height:1.8;">O imóvel tem estrutura favorável: banheiro de apoio existente, sala de banho com hidráulica e azulejo já instalados, corredor e múltiplos cômodos. A principal necessidade é iluminação e acabamento no padrão visual da marca.</p>
+  <div style="background:white;border-radius:20px;padding:32px;box-shadow:var(--sombra);margin-bottom:16px;">
+    <div class="layout-grid">
+      <div class="room-card recep">
+        <div class="room-name">💜 Recepção &amp; Espera</div>
+        <div class="room-desc">Balcão, 2–3 cadeiras confortáveis, planta decorativa, logo na parede, QR code do Instagram. Vitrine de produtos à venda.</div>
+      </div>
+      <div class="room-card banho">
+        <div class="room-name">🛁 Sala de Banho</div>
+        <div class="room-desc">Banheira profissional, mesa de apoio, secador. Azulejo branco já existe — adicionar boa iluminação LED fria e ventilação adequada.</div>
+      </div>
+      <div class="room-card tosa">
+        <div class="room-name">✂️ Sala de Tosa</div>
+        <div class="room-desc">Mesa ajustável, máquinas, tesouras, espelho. Boa iluminação é essencial — coração da operação premium.</div>
+      </div>
+      <div class="room-card estoque">
+        <div class="room-name">📦 Estoque</div>
+        <div class="room-desc">Shampoos, condicionadores e produtos. Armário fechado. Controle pelo app Ju Pet.</div>
+      </div>
+      <div class="room-card banheiro">
+        <div class="room-name">🚿 Banheiro</div>
+        <div class="room-desc">Já existe no imóvel. Manter limpo e organizado para Tia Ju e assistente.</div>
+      </div>
+      <div class="room-card" style="background:#FFF5F5;border:1.5px solid #FFCDD2;">
+        <div class="room-name">✨ Toque Ju Pet</div>
+        <div class="room-desc">Adesivo da logo na entrada, aromatizador lavanda, música ambiente calma, tag com nome do pet durante atendimento.</div>
+      </div>
+    </div>
+  </div>
+  <div class="alerta-box">
+    <div class="alerta-title">Prioridade na reforma</div>
+    <div class="alerta-item">Iluminação — os ambientes nas fotos estão escuros. Isso prejudica a percepção de premium. Instale LED frio nas salas de banho e tosa.</div>
+    <div class="alerta-item">Pintura — paredes brancas limpas + 1 parede de destaque em roxo ou lilás na recepção.</div>
+  </div>
+  <div class="ok-box">
+    <div class="ok-title">Pontos positivos do imóvel</div>
+    <div class="ok-item">Hidráulica da sala de banho já instalada — economiza reforma significativa.</div>
+    <div class="ok-item">Banheiro de apoio já existente para a equipe.</div>
+    <div class="ok-item">Ar-condicionado já está confirmado — padrão da marca mantido.</div>
+  </div>
+</section>
+
+<hr class="page-divider">
+
+<!-- 04 EQUIPE -->
+<section>
+  <p class="section-tag">04 · Equipe</p>
+  <h2>As pessoas por<br><em>trás da Ju Pet</em></h2>
+  <div class="equipe-grid">
+    <div class="equipe-card">
+      <div class="equipe-avatar" style="background:var(--lilas-palido);">👩‍💼</div>
+      <div class="equipe-nome">Tia Ju</div>
+      <div class="equipe-cargo">Proprietária &amp; Groomer Principal</div>
+      <span class="equipe-tag">Tosa na tesoura</span>
+      <span class="equipe-tag">Banho especializado</span>
+      <span class="equipe-tag">Cromoterapia</span>
+      <span class="equipe-tag">Gestão da loja</span>
+    </div>
+    <div class="equipe-card">
+      <div class="equipe-avatar" style="background:#E8F4FB;">🧑‍🔧</div>
+      <div class="equipe-nome">Assistente</div>
+      <div class="equipe-cargo">Auxiliar de Estética · 6h/dia</div>
+      <span class="equipe-tag">Apoio no banho</span>
+      <span class="equipe-tag">Recepção</span>
+      <span class="equipe-tag">Organização</span>
+      <span class="equipe-tag">Bolsa R$ 700/mês</span>
+    </div>
+  </div>
+  <div class="ok-box">
+    <div class="ok-title">Equipe enxuta e eficiente para o momento</div>
+    <div class="ok-item">Custo de pessoal controlado — permite acumular capital para crescer.</div>
+    <div class="ok-item">Com 2–3 atendimentos/dia o break-even já é atingido com essa equipe.</div>
+    <div class="ok-item">Quando o volume aumentar, avaliar 2° groomer ou ampliar carga do assistente.</div>
+  </div>
+</section>
+
+<hr class="page-divider">
+
+<!-- 05 SERVIÇOS -->
+<section>
+  <p class="section-tag">05 · Cardápio de serviços</p>
+  <h2>Tabela de preços<br><em>recomendada</em></h2>
+  <div style="background:white;border-radius:20px;padding:32px;box-shadow:var(--sombra);margin-bottom:24px;">
+    <table class="servicos-table">
+      <thead><tr><th>Serviço</th><th>Porte / Detalhe</th><th>Preço sugerido</th></tr></thead>
+      <tbody>
+        <tr class="destaque-row"><td><strong>Banho + Tosa Completa</strong></td><td>Pequeno</td><td class="preco">R$ 65–85</td></tr>
+        <tr><td>Banho + Tosa Completa</td><td>Médio</td><td class="preco">R$ 90–120</td></tr>
+        <tr><td>Banho + Tosa Completa</td><td>Grande</td><td class="preco">R$ 130–170</td></tr>
+        <tr class="destaque-row"><td><strong>Tosa na Tesoura (raça)</strong></td><td>Todos</td><td class="preco">R$ 100–160</td></tr>
+        <tr><td>Banho Simples</td><td>Pequeno / Médio</td><td class="preco">R$ 40–70</td></tr>
+        <tr><td>Hidratação de Pelagem</td><td>Add-on</td><td class="preco">R$ 30–50</td></tr>
+        <tr><td>Cromoterapia</td><td>Add-on</td><td class="preco">R$ 20–35</td></tr>
+        <tr><td>Tosa Higiênica</td><td>Avulso</td><td class="preco">R$ 25–40</td></tr>
+        <tr><td>Escovação Dental</td><td>Avulso</td><td class="preco">R$ 20–30</td></tr>
+        <tr><td>Limpeza de Ouvido</td><td>Avulso</td><td class="preco">R$ 15–25</td></tr>
+        <tr><td>Corte de Unhas</td><td>Avulso</td><td class="preco">R$ 15–20</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="clubinho-card">
+    <div>
+      <h3>☁️ Clubinho da Tia Ju</h3>
+      <p>Principal motor de fidelização e receita previsível. Clientes do Clubinho voltam automaticamente todo mês — cada assinante garante R$ 180 de receita recorrente.</p>
+      <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+        <span style="background:rgba(255,255,255,0.12);border-radius:20px;padding:5px 14px;font-size:12px;">04 banhos</span>
+        <span style="background:rgba(255,255,255,0.12);border-radius:20px;padding:5px 14px;font-size:12px;">04 limpezas de ouvido</span>
+        <span style="background:rgba(255,255,255,0.12);border-radius:20px;padding:5px 14px;font-size:12px;">02 cortes de unha</span>
+        <span style="background:rgba(255,255,255,0.12);border-radius:20px;padding:5px 14px;font-size:12px;">03 hidratações</span>
+        <span style="background:rgba(255,255,255,0.12);border-radius:20px;padding:5px 14px;font-size:12px;">01 tosa higiênica</span>
+        <span style="background:rgba(255,255,255,0.12);border-radius:20px;padding:5px 14px;font-size:12px;">04 escovações dental</span>
+      </div>
+    </div>
+    <div class="clubinho-preco">
+      <div class="de">R$ 270</div>
+      <div class="por">por apenas</div>
+      <div class="valor">R$ 180</div>
+      <div style="font-size:11px;opacity:0.6;margin-top:4px;">/mês</div>
+    </div>
+  </div>
+</section>
+
+<hr class="page-divider">
+
+<!-- 06 FINANCEIRO -->
+<section>
+  <p class="section-tag">06 · Financeiro</p>
+  <h2>Despesas fixas e<br><em>projeção de receita</em></h2>
+
+  <p style="font-size:14px;color:var(--cinza-claro);margin-bottom:24px;line-height:1.8;">Despesas levantadas pela própria equipe e complementadas com itens identificados no planejamento.</p>
+
+  <div style="background:white;border-radius:20px;padding:32px;box-shadow:var(--sombra);margin-bottom:24px;">
+    <p style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--lilas);margin-bottom:16px;">Despesas fixas mensais — nova sede</p>
+    <table class="custo-table">
+      <tr><td>Aluguel</td><td class="cat-tag"><span style="font-size:10px;background:#F5EDF9;color:#6B3F8C;padding:2px 8px;border-radius:10px;">Estrutura</span></td><td>R$ 1.200</td></tr>
+      <tr><td>Energia elétrica</td><td class="cat-tag"><span style="font-size:10px;background:#F5EDF9;color:#6B3F8C;padding:2px 8px;border-radius:10px;">Estrutura</span></td><td>R$ 500 <span style="font-size:11px;color:#B8930A;">*monitorar</span></td></tr>
+      <tr><td>Água</td><td class="cat-tag"><span style="font-size:10px;background:#F5EDF9;color:#6B3F8C;padding:2px 8px;border-radius:10px;">Estrutura</span></td><td>R$ 200</td></tr>
+      <tr><td>Internet (wi-fi)</td><td class="cat-tag"><span style="font-size:10px;background:#F5EDF9;color:#6B3F8C;padding:2px 8px;border-radius:10px;">Estrutura</span></td><td>R$ 100</td></tr>
+      <tr><td>Transporte — Tia Ju</td><td class="cat-tag"><span style="font-size:10px;background:#EDFAF3;color:#2E9E75;padding:2px 8px;border-radius:10px;">Operação</span></td><td>R$ 500</td></tr>
+      <tr><td>Bolsa assistente (6h/dia)</td><td class="cat-tag"><span style="font-size:10px;background:#E8F4FB;color:#185FA5;padding:2px 8px;border-radius:10px;">Equipe</span></td><td>R$ 700</td></tr>
+      <tr><td>Alimentação — Tia Ju</td><td class="cat-tag"><span style="font-size:10px;background:#E8F4FB;color:#185FA5;padding:2px 8px;border-radius:10px;">Equipe</span></td><td>R$ 600</td></tr>
+      <tr><td>Alimentação — Assistente</td><td class="cat-tag"><span style="font-size:10px;background:#E8F4FB;color:#185FA5;padding:2px 8px;border-radius:10px;">Equipe</span></td><td>R$ 500</td></tr>
+      <tr><td>Produtos de consumo (shampoos, etc.)</td><td class="cat-tag"><span style="font-size:10px;background:#EDFAF3;color:#2E9E75;padding:2px 8px;border-radius:10px;">Operação</span></td><td>R$ 400</td></tr>
+      <tr><td>Maquininha (taxa mensal)</td><td class="cat-tag"><span style="font-size:10px;background:#EDFAF3;color:#2E9E75;padding:2px 8px;border-radius:10px;">Operação</span></td><td>R$ 80</td></tr>
+      <tr><td>Contador / DAS Simples Nacional</td><td class="cat-tag"><span style="font-size:10px;background:#FEF9E7;color:#854F0B;padding:2px 8px;border-radius:10px;">Fiscal</span></td><td>R$ 200</td></tr>
+      <tr><td>Fundo manutenção de equipamentos</td><td class="cat-tag"><span style="font-size:10px;background:#EDFAF3;color:#2E9E75;padding:2px 8px;border-radius:10px;">Operação</span></td><td>R$ 150</td></tr>
+      <tr><td>Marketing digital (Instagram)</td><td class="cat-tag"><span style="font-size:10px;background:#EDFAF3;color:#2E9E75;padding:2px 8px;border-radius:10px;">Operação</span></td><td>R$ 150</td></tr>
+      <tr class="total"><td colspan="2"><strong>Total mensal estimado</strong></td><td><strong>R$ 5.280</strong></td></tr>
+    </table>
+    <p style="font-size:12px;color:var(--cinza-claro);margin-top:12px;line-height:1.7;">* Os itens internet, maquininha, produtos de consumo, contador, fundo de manutenção e marketing foram identificados no planejamento como itens que tipicamente são esquecidos no levantamento inicial.</p>
+  </div>
+
+  <div class="break-card">
+    <div class="break-title">Quantos atendimentos por mês para cobrir tudo?</div>
+    <div class="break-row"><span>Total despesas fixas</span><span class="break-num">R$ 5.280</span></div>
+    <div class="break-row"><span>Ticket médio conservador (R$ 75)</span><span class="break-num">71 atendimentos/mês</span></div>
+    <div class="break-row"><span>Ticket médio realista (R$ 90)</span><span class="break-num">59 atendimentos/mês</span></div>
+    <div class="break-row"><span>Ticket médio otimista (R$ 110)</span><span class="break-num">48 atendimentos/mês</span></div>
+    <div class="break-row total"><span>Em dias úteis (~24 dias/mês)</span><span class="break-num">2–3 pets/dia já cobre o fixo</span></div>
+  </div>
+
+  <div class="ok-box" style="margin-top:16px;">
+    <div class="ok-title">Meta poderosa: 30 assinantes no Clubinho</div>
+    <div class="ok-item">30 assinantes × R$ 180 = R$ 5.400/mês — cobre 100% das despesas fixas.</div>
+    <div class="ok-item">Qualquer atendimento avulso além disso vira lucro puro.</div>
+    <div class="ok-item">Meta realista para o 3º mês de operação na nova sede.</div>
+  </div>
+
+  <div style="margin-top:24px;">
+    <p style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--lilas);margin-bottom:16px;">Projeção de receita mensal</p>
+    <div class="fin-grid">
+      <div class="fin-card">
+        <div class="cenario">Conservador · mês 1–2</div>
+        <div class="valor">R$ 6–9k</div>
+        <div class="desc">~80–120 atendimentos<br>fase de transição</div>
+      </div>
+      <div class="fin-card destaque">
+        <div class="cenario">Moderado · mês 3–6</div>
+        <div class="valor">R$ 12–18k</div>
+        <div class="desc">~160–240 atendimentos<br>Clubinho consolidado</div>
+      </div>
+      <div class="fin-card">
+        <div class="cenario">Consolidado · mês 7+</div>
+        <div class="valor">R$ 20–28k</div>
+        <div class="desc">~270–370 atendimentos<br>marca estabelecida</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="page-divider">
+
+<!-- 07 APP -->
+<section>
+  <p class="section-tag">07 · Tecnologia</p>
+  <h2>App Ju Pet<br><em>já desenvolvido</em></h2>
+  <p style="font-size:14px;color:var(--cinza-claro);margin-bottom:24px;line-height:1.8;">A Ju Pet já conta com um app de gestão próprio, desenvolvido sob medida para a operação. Funciona em qualquer dispositivo — celular, tablet ou computador — sem custo mensal de plataforma.</p>
+  <div class="app-card">
+    <div class="app-feature">
+      <div class="app-icon">🏠</div>
+      <div><div class="app-info-title">Dashboard</div><div class="app-info-desc">Visão do dia: atendimentos, receita do mês, % do break-even coberto, próximo cliente na fila e painel do Clubinho.</div></div>
+    </div>
+    <div class="app-feature">
+      <div class="app-icon">📅</div>
+      <div><div class="app-info-title">Agenda de atendimentos</div><div class="app-info-desc">Agendar com data, hora, serviço, valor e status (agendado / concluído / cancelado). Filtro por dia.</div></div>
+    </div>
+    <div class="app-feature">
+      <div class="app-icon">🐶</div>
+      <div><div class="app-info-title">Cadastro de Clientes &amp; Pets</div><div class="app-info-desc">Tutor, pet, raça, porte, telefone, observações, Clubinho, <strong>foto do pet tirada na hora</strong> e <strong>data de aniversário</strong>.</div></div>
+    </div>
+    <div class="app-feature">
+      <div class="app-icon">🎂</div>
+      <div><div class="app-info-title">Alerta de aniversários</div><div class="app-info-desc">Banner automático no dashboard com os aniversários dos pets no mês. Destaque especial para o dia e contagem regressiva para os próximos 30 dias.</div></div>
+    </div>
+    <div class="app-feature">
+      <div class="app-icon">💰</div>
+      <div><div class="app-info-title">Controle financeiro</div><div class="app-info-desc">Despesas fixas já cadastradas (R$ 5.280/mês), lançamentos variáveis de entrada e saída, barra de progresso do break-even mês a mês.</div></div>
+    </div>
+    <div class="app-feature">
+      <div class="app-icon">🧾</div>
+      <div><div class="app-info-title">Gerador de recibo</div><div class="app-info-desc">Seleciona os serviços, gera o recibo e copia direto para o WhatsApp do cliente — formatado, profissional e com a identidade da Ju Pet.</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="page-divider">
+
+<!-- 08 MARKETING -->
+<section>
+  <p class="section-tag">08 · Visibilidade</p>
+  <h2>Estratégia de marketing<br><em>para a nova sede</em></h2>
+  <div class="mkt-grid">
+    <div class="mkt-card">
+      <h4>📸 Instagram</h4>
+      <div class="mkt-item">Anunciar mudança de endereço com story e post fixado</div>
+      <div class="mkt-item">Mostrar o "antes e depois" da reforma da nova loja</div>
+      <div class="mkt-item">Reels do processo de montagem — gera curiosidade</div>
+      <div class="mkt-item">Fotos dos pets na nova sede desde o 1° dia</div>
+      <div class="mkt-item">"Mesmo carinho, endereço novo" como mensagem central</div>
+    </div>
+    <div class="mkt-card">
+      <h4>📍 Presença local</h4>
+      <div class="mkt-item">Fachada com logo visível — melhor outdoor possível</div>
+      <div class="mkt-item">Panfletagem nos condomínios e prédios do Acupe</div>
+      <div class="mkt-item">Cartão de visita com novo endereço atualizado</div>
+      <div class="mkt-item">Parceria com pet shops que não fazem tosa na região</div>
+      <div class="mkt-item">Indicação premiada: desconto no próximo banho</div>
+    </div>
+    <div class="mkt-card">
+      <h4>💬 WhatsApp</h4>
+      <div class="mkt-item">Lista de transmissão avisando todos os clientes da mudança</div>
+      <div class="mkt-item">Link de agendamento direto no perfil Business</div>
+      <div class="mkt-item">Foto do pet pós-tosa enviada ao tutor após cada atendimento</div>
+      <div class="mkt-item">Mensagem de aniversário do pet no dia (via app)</div>
+    </div>
+    <div class="mkt-card">
+      <h4>🎉 Semana de inauguração</h4>
+      <div class="mkt-item">30% off no 1° atendimento para novos clientes da região</div>
+      <div class="mkt-item">Sorteio de 1 mês do Clubinho nos Stories</div>
+      <div class="mkt-item">Impulsionar post de inauguração — R$ 50–100 é suficiente</div>
+      <div class="mkt-item">Convidar clientes atuais para conhecer o novo espaço</div>
+    </div>
+  </div>
+</section>
+
+<hr class="page-divider">
+
+<!-- 09 CRONOGRAMA -->
+<section>
+  <p class="section-tag">09 · Próximos passos</p>
+  <h2>Cronograma de<br><em>transição</em></h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-periodo">Semana 1–2 · Agora</div>
+      <div class="tl-titulo">Preparação do espaço</div>
+      <ul class="tl-itens">
+        <li>Pintura nas cores da Ju Pet (branco + detalhes roxo)</li>
+        <li>Instalação de iluminação LED adequada nas salas</li>
+        <li>Confirmar ar-condicionado instalado e funcionando</li>
+        <li>Adesivo/plaquinha da logo na entrada</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-periodo">Semana 3 · Montagem</div>
+      <div class="tl-titulo">Equipamentos e organização</div>
+      <ul class="tl-itens">
+        <li>Instalar e testar todos os equipamentos de banho e tosa</li>
+        <li>Organizar estoque e prateleiras de produtos</li>
+        <li>Montar recepção com balcão e cadeiras</li>
+        <li>Testar hidráulica completa da sala de banho</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-periodo">Semana 4 · Comunicação</div>
+      <div class="tl-titulo">Avisar clientes e abrir agenda</div>
+      <ul class="tl-itens">
+        <li>Lista de transmissão WhatsApp com novo endereço</li>
+        <li>Post + story no Instagram anunciando a mudança</li>
+        <li>Abrir agenda no app para os primeiros agendamentos</li>
+        <li>Panfletagem nos condomínios do Acupe</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--amarelo);"></div>
+      <div class="tl-periodo">Abertura na nova sede</div>
+      <div class="tl-titulo" style="color:#B8930A;">🎉 Reabertura oficial</div>
+      <ul class="tl-itens">
+        <li>30% off no 1° atendimento para novos clientes</li>
+        <li>Post impulsionado no Instagram</li>
+        <li>Sorteio do Clubinho para novos seguidores</li>
+        <li>Foto dos primeiros pets na nova loja para o Instagram</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-periodo">Mês 2–3 · Crescimento</div>
+      <div class="tl-titulo">Fidelização e metas</div>
+      <ul class="tl-itens">
+        <li>Meta: 30 assinantes no Clubinho (break-even 100% coberto)</li>
+        <li>Cartão fidelidade: 8 banhos = 1 grátis</li>
+        <li>Usar app para monitorar receita vs despesas mensalmente</li>
+        <li>Registrar marca Ju Pet no INPI</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="alerta-box">
+    <div class="alerta-title">Documentação necessária (Salvador/BA)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;">
+      <span style="font-size:12px;background:white;border-radius:20px;padding:4px 12px;color:var(--roxo);">CNPJ / MEI ativo</span>
+      <span style="font-size:12px;background:white;border-radius:20px;padding:4px 12px;color:var(--roxo);">Alvará de funcionamento</span>
+      <span style="font-size:12px;background:white;border-radius:20px;padding:4px 12px;color:var(--roxo);">Licença sanitária VISA-BA</span>
+      <span style="font-size:12px;background:white;border-radius:20px;padding:4px 12px;color:var(--roxo);">Simples Nacional</span>
+      <span style="font-size:12px;background:white;border-radius:20px;padding:4px 12px;color:var(--roxo);">Contrato de aluguel</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer-page">
+  <h2>Ju Pet<br><em>vai longe</em></h2>
+  <p>Banho &amp; Tosa Premium · Acupe de Brotas · Salvador, Bahia · @ju.pett</p>
+  <div class="footer-metrics">
+    <div class="footer-metric"><div class="num">R$ 5.280</div><div class="lbl">Despesas fixas/mês</div></div>
+    <div class="footer-metric"><div class="num">30</div><div class="lbl">Assinantes p/ break-even</div></div>
+    <div class="footer-metric"><div class="num">R$ 180</div><div class="lbl">Clubinho / mês</div></div>
+    <div class="footer-metric"><div class="num">2–3</div><div class="lbl">Pets/dia p/ cobrir o fixo</div></div>
+  </div>
+</div>
+
+</body>
+</html>
